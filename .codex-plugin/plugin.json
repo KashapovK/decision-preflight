@@ -1,0 +1,36 @@
+{
+  "name": "decision-preflight",
+  "version": "0.1.0",
+  "description": "Preflight unresolved technical decisions against evidence, authority, and hidden assumptions.",
+  "author": {
+    "name": "Konstantin Kashapov",
+    "url": "https://github.com/KashapovK"
+  },
+  "homepage": "https://github.com/KashapovK/decision-preflight#readme",
+  "repository": "https://github.com/KashapovK/decision-preflight",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "architecture",
+    "decision-making",
+    "evidence",
+    "technical-decisions"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Decision Preflight",
+    "shortDescription": "Decide what the evidence actually requires.",
+    "longDescription": "Separate current behavior, capability, intent, and derived requirements before comparing, recommending, revising, or recording a technical decision.",
+    "developerName": "Konstantin Kashapov",
+    "category": "Productivity",
+    "capabilities": [
+      "Read"
+    ],
+    "websiteURL": "https://github.com/KashapovK/decision-preflight",
+    "defaultPrompt": [
+      "Preflight this architecture decision before I choose.",
+      "Check whether this implementation detail is a real requirement.",
+      "Recheck this recommendation against the available evidence."
+    ]
+  }
+}
