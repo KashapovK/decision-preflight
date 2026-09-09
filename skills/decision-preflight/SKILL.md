@@ -1,16 +1,16 @@
 ---
 name: decision-preflight
-description: Preflight an unresolved technical or architecture decision when current code, mocks, contracts, design artifacts, prior decisions, or dependency behavior may be mistaken for requirements or intent. Use before comparing alternatives, recording a decision, or revising a challenged recommendation, including a settled decision challenged by new verified evidence. Skip routine implementation, debugging, mechanical refactors, and ordinary review of settled decisions.
+description: Detect material implicit choices at implementation handoff, during implementation, or in review, even when a task is fully specified or its design accepted; then check their evidence and authority. Include behavior chosen through defaults, omitted arguments, helpers, or environment assumptions. Also preflight unresolved technical decisions before comparing, recommending, recording, or revising them, including settled decisions challenged by verified evidence. Skip mechanical edits, routine debugging, and implementation or review that only follows settled behavior without a new material choice.
 license: MIT
 metadata:
   author: KashapovK
-  short-description: Preflight technical decisions against evidence
+  short-description: Detect implicit decisions and verify their grounds
   version: "0.1.0"
 ---
 
 # Decision Preflight
 
-Determine whether the available evidence is sufficient to make, recommend, or publish an unresolved technical decision without turning accidental implementation details into architecture.
+Detect material choices before checking whether the available evidence is sufficient to make, implement, recommend, or publish them. A task labeled fully specified or an accepted design does not establish intent for behavior it never addressed.
 
 Use this skill as a standalone preflight. If an issue, decision record, planning system, or another workflow owns publication and lifecycle state, return the result to it without taking over that ownership.
 
@@ -30,9 +30,24 @@ Inspect only the evidence and decision branches that could change the outcome:
 - For a new unresolved decision, establish the material claims before evaluating alternatives.
 - For a challenged or revised recommendation, recheck the affected claims and branch rather than reopening unrelated reasoning.
 - Reuse a current, trustworthy evidence pack instead of rebuilding it.
-- Stop using this skill when the task is routine implementation of a settled decision.
+- Preserve accepted choices, including unusual values, and explicitly supported derived requirements within their scope. Silence about another behavior is neither acceptance nor a contradiction.
+- Stop when implementation or ordinary review only follows settled behavior and exposes no new material choice. Renaming, formatting, and equivalent computations do not warrant an architecture audit.
 
 Do not widen the user's scope, silently reopen a settled decision, or mutate external tracker or decision-record state without authorization.
+
+## 0. Detect material choices
+
+At handoff, implementation, or review, briefly trace what the proposed work makes happen before deciding whether there is an unresolved decision. Look beyond explicit values to defaults, omitted parameters, helper behavior, inherited configuration, and assumptions about the execution environment. Follow only paths relevant to a concrete consequence; do not inventory every possible design choice.
+
+A choice is material when a plausible alternative changes a contract, security boundary, observable behavior, state, failure recovery, concurrency, or execution conditions. Name the behavior and its concrete consequence. Mere stylistic preference or a behaviorally equivalent computation is not enough.
+
+For side effects, establish when and in which context they run, who owns state, how long it lives and who shares it, and what cancellation, rerun, or partial failure leaves behind. Trace relevant callers and helpers instead of assuming a local-looking operation has local effects. When inferring policy from environment properties, verify both the property and the requirement connecting it to that policy; capability, topology, or an observed runtime condition alone does not supply intent.
+
+Match each material behavior to an accepted decision, explicit requirement, or supported derivation. Carry covered behavior forward unchanged. For uncovered behavior, define the smallest unresolved choice and continue below. Verified conflict with an accepted decision follows the existing reopening path; an additional uncovered choice does not reopen that decision by itself.
+
+In review, check both directions: required behavior missing from the implementation, and material implementation behavior absent from the requirements. For the latter, report the behavior and its location, consequences, and missing basis after inspecting relevant evidence. Do not require a quotation of a nonexistent requirement. An ordinary defect against a settled requirement can stay in the normal review workflow.
+
+Block only work that depends on the unresolved material choice; continue independent work. Research factual gaps yourself before asking for genuinely missing intent or an owner choice. Do not fill a policy gap with a conventional or supposedly safe default.
 
 ## 1. Set the decision boundary
 
@@ -80,7 +95,7 @@ Confidence or gap:
 Apply these checks:
 
 - Point to direct evidence for explicit requirements and accepted constraints.
-- Record a derived requirement as `A + B -> C`; do not attribute `C` directly to the user or product.
+- Record a derived requirement as `A + B -> C`; verify the premises and the link to `C`, and do not attribute `C` directly to the user or product. Preserve a supported derivation; do not ask the user to restate it.
 - Label recommendations and preferences as choices rather than requirements.
 - Treat backend or library availability as capability until a requirement connects it to the decision.
 - Verify material version-sensitive claims against the intended version or channel.
@@ -138,4 +153,4 @@ Omit `Recommendation` when neither requested nor supported. When `INCONCLUSIVE` 
 - `INCONCLUSIVE`: a factual gap, unresolved contradiction, missing authority, or prerequisite could still change the outcome.
 - `REOPEN_REQUIRED`: verified evidence conflicts with a settled decision, and permission or owner action is required before proceeding.
 
-Expand the result into a claim ledger or per-axis comparison only when risk, ambiguity, or the user's request justifies the extra detail. When another workflow owns publication or lifecycle state, return the result and let that workflow record or publish it.
+For a newly exposed implementation choice, include its behavior, consequence, and missing basis in the compact result or review finding. Apply the verdict to that choice, not to unrelated accepted work. Expand the result into a claim ledger or per-axis comparison only when risk, ambiguity, or the user's request justifies the extra detail. When another workflow owns publication or lifecycle state, return the result and let that workflow record or publish it.

@@ -6,14 +6,19 @@ Use these cases to evaluate implicit activation and decision quality. Test the s
 
 A successful run should:
 
-- activate only for an unresolved technical decision where evidence classification could change the outcome;
+- detect material implicit choices before evidence classification, including in work labeled fully specified or accepted;
+- activate only where an unresolved material choice or verified conflict could change the outcome;
 - distinguish current state, capability, intent, and derived requirements;
-- inspect proportionately and avoid reopening unrelated reasoning;
+- inspect proportionately, preserve accepted choices and supported derivations, and avoid reopening unrelated reasoning;
+- trace indirect behavior and side-effect lifecycle when concretely material;
+- block only dependent work and research factual gaps before asking for missing intent;
 - return the smallest useful result with the correct verdict;
 - preserve external issue, decision-record, and tracker ownership;
 - work without any named companion skill.
 
 Do not grade exact headings or wording. Grade the decisions, evidence use, scope, verdict, and side effects.
+
+Artifact-backed handoff, implementation, review, and mechanical-edit cases are in [Implicit decision cases](implicit-decisions.md). They extend the regressions below; their [execution status](execution-status.md) is recorded separately from the historical 0.1.0 runs.
 
 ## Positive activation cases
 
@@ -141,7 +146,7 @@ Confirm the recommendation before I record this renewal-ownership decision:
 Expected observations:
 
 - activates before the recommendation is recorded;
-- rejects option A before comparing softer trade-offs;
+- rejects candidates proven to violate the invariant before comparing softer trade-offs; does not infer duplicate active renewals merely from competing requests when the contract makes writes idempotent;
 - verifies that option B does not depend on an unproven assumption or optional optimization;
 - returns `READY_TO_PUBLISH` when no material gap remains.
 
@@ -177,7 +182,7 @@ Expected observation: does not activate; performs the scoped refactor.
 Review this small patch for correctness and regressions. The design is already accepted.
 ```
 
-Expected observation: does not activate solely because the review mentions design or correctness.
+Expected observation: does not activate solely because the review mentions design or correctness. With no patch supplied, requests the patch; this does not establish that an unseen implementation contains no material choice. Compare the artifact-backed review cases in [Implicit decision cases](implicit-decisions.md).
 
 ### 5. Local implementation choice
 

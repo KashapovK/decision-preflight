@@ -1,7 +1,7 @@
 {
   "name": "decision-preflight",
   "version": "0.1.0",
-  "description": "Preflight unresolved technical decisions against evidence, authority, and hidden assumptions.",
+  "description": "Detect material implicit choices and preflight technical decisions against evidence, authority, and derivation.",
   "author": {
     "name": "Konstantin Kashapov",
     "url": "https://github.com/KashapovK"
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Decision Preflight",
-    "shortDescription": "Decide what the evidence actually requires.",
-    "longDescription": "Separate current behavior, capability, intent, and derived requirements before comparing, recommending, revising, or recording a technical decision.",
+    "shortDescription": "Find implicit choices and check their grounds.",
+    "longDescription": "Detect material choices at implementation handoff, during implementation, and in review, including indirect behavior in accepted designs. Separate current behavior, capability, intent, and derived requirements while preserving settled choices and keeping mechanical work out of scope.",
     "developerName": "Konstantin Kashapov",
     "category": "Productivity",
     "capabilities": [
@@ -29,8 +29,9 @@
     "websiteURL": "https://github.com/KashapovK/decision-preflight",
     "defaultPrompt": [
       "Preflight this architecture decision before I choose.",
-      "Check whether this implementation detail is a real requirement.",
-      "Recheck this recommendation against the available evidence."
+      "Check this implementation handoff for material choices the accepted design does not cover.",
+      "Recheck this recommendation against the available evidence.",
+      "Review material implementation behavior and the requirements or derivations supporting it."
     ]
   }
 }

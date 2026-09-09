@@ -1,6 +1,6 @@
 interface:
   display_name: "Decision Preflight"
-  short_description: "Preflight technical decisions against evidence"
-  default_prompt: "Use $decision-preflight to verify the evidence, assumptions, boundaries, and readiness of this unresolved technical decision before recommending, revising, or recording it."
+  short_description: "Detect implicit decisions and verify their grounds"
+  default_prompt: "Use $decision-preflight to detect material implicit choices in this handoff, implementation, or review and verify their authority and derivation while preserving accepted decisions."
 policy:
   allow_implicit_invocation: true
